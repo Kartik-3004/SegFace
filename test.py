@@ -69,6 +69,7 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=32)
     parser.add_argument("--num_workers", type=int, default=4)
     parser.add_argument("--model_path", type=str)
+    parser.add_argument("--num_classes", type=int, default=11)
     args = parser.parse_args()  
     args.ckpt_path = os.path.join(os.getenv('LOG_PATH'), args.ckpt_path)
     test(args)
