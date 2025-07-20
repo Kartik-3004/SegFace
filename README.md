@@ -73,7 +73,7 @@ echo 'LOG_PATH=/mnt/store/knaraya4/SegFace' >> .env
 The datasets can be downloaded from their respective webpages or by mailing the authors:<br>
 1. [CelebAMask-HQ](https://mmlab.ie.cuhk.edu.hk/projects/CelebA/CelebAMask_HQ.html)<br>
 2. [LaPa](https://github.com/jd-opensource/lapa-dataset)<br>
-3. [Helen](https://github.com/zhfe99/helen)<br>
+3. [Helen](https://github.com/JPlin/Relabeled-HELEN-Dataset)<br>
 
 Arrange the dataset in the following manner:
 ```python
@@ -140,6 +140,7 @@ hf_hub_download(repo_id="kartiknarayan/SegFace", filename="swinb_lapa_256/model_
 hf_hub_download(repo_id="kartiknarayan/SegFace", filename="swinb_lapa_448/model_299.pt", local_dir="./weights")
 hf_hub_download(repo_id="kartiknarayan/SegFace", filename="swinb_lapa_512/model_299.pt", local_dir="./weights")
 hf_hub_download(repo_id="kartiknarayan/SegFace", filename="swinv2b_celeba_512/model_299.pt", local_dir="./weights")
+hf_hub_download(repo_id="kartiknarayan/SegFace", filename="swinb_helen_512/model_299.pt", local_dir="./weights")
 ```
 
 # Usage
