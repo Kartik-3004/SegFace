@@ -52,19 +52,22 @@ def _merge(*list_pairs):
     return a, b 
 
 def validation(cfg, model, val_dataloaders, val_names, log_root):
-    confusion_matrix = np.zeros((cfg.num_classes, cfg.num_classes))
     if val_names[0] == "LaPa":
         LABELS = ['background', 'face_lr_rr', 'lb', 'rb', 'le', 're', 'nose', 'ul', 'im', 'll', 'hair']
         gt_label_names = ['background', 'face_lr_rr', 'lb', 'rb', 'le', 're', 'nose', 'ul', 'im', 'll', 'hair']
         pred_label_names = ['background', 'face_lr_rr', 'lb', 'rb', 'le', 're', 'nose', 'ul', 'im', 'll', 'hair']
+        num_classes = 11
     elif val_names[0] == "CelebAMaskHQ":
         LABELS = ['background', 'neck', 'skin', 'cloth', 'l_ear', 'r_ear', 'l_brow', 'r_brow','l_eye', 'r_eye', 'nose', 'mouth', 'l_lip', 'u_lip', 'hair','eye_g', 'hat', 'ear_r', 'neck_l']
         gt_label_names = ['background', 'neck', 'skin', 'cloth', 'l_ear', 'r_ear', 'l_brow', 'r_brow','l_eye', 'r_eye', 'nose', 'mouth', 'l_lip', 'u_lip', 'hair','eye_g', 'hat', 'ear_r', 'neck_l']
         pred_label_names = ['background', 'neck', 'skin', 'cloth', 'l_ear', 'r_ear', 'l_brow', 'r_brow','l_eye', 'r_eye', 'nose', 'mouth', 'l_lip', 'u_lip', 'hair','eye_g', 'hat', 'ear_r', 'neck_l']
+        num_classes = 19
     elif val_names[0] == "HELEN":
         LABELS = ['bg', 'face', 'lb', 'rb', 'le', 're', 'nose', 'ulip', 'imouth', 'llip', 'hair']
         gt_label_names = ['bg', 'face', 'lb', 'rb', 'le', 're', 'nose', 'ulip', 'imouth', 'llip', 'hair']
         pred_label_names = ['bg', 'face', 'lb', 'rb', 'le', 're', 'nose', 'ulip', 'imouth', 'llip', 'hair']
+        num_classes = 11
+    confusion_matrix = np.zeros((num_classes, num_classes))
 
     hists = []
     loader_names = val_names
@@ -94,7 +97,7 @@ def validation(cfg, model, val_dataloaders, val_names, log_root):
                     hist = fast_histogram(gt, pred, len(gt_label_names), len(pred_label_names))
                     hists.append(hist)
 
-                    confusion_matrix += get_confusion_matrix(gt, pred, cfg.num_classes)
+                    confusion_matrix += get_confusion_matrix(gt, pred, num_classes)
 
     hist_sum = np.sum(np.stack(hists, axis=0), axis=0)    
     eval_names = dict()
